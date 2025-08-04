@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome, <span id="internName">...</span></h1>
+    <br>
+    <p>Enter Fund Amount:</p>
+    <input type="number" id="fundInput" placeholder="₹1000" />
+    <button onclick="submitFund()">Submit Donation</button>
+
+    <p>Referral Code: <strong id="referralCode">...</strong></p>
+    <p>Total Donations Raised: ₹<strong id="donations">0</strong></p>
+
+    <h2>Rewards</h2>
+    <ul>
+      <li>🎉 Sticker Pack</li>
+      <li>🏅 Digital Certificate</li>
+      <li>🎁 Exclusive Badge</li>
+    </ul>
+
+    <h2><a href="leaderboard.html">→ View Leaderboard</a></h2>
+    <button onclick="logout()">Logout</button>
+</div>
+
+  <script>
+  const internName = localStorage.getItem("internName");
+  if (!internName) {
+    window.location.href = "index.html";
+  }
+
+  document.getElementById("internName").textContent = internName;
+
+  // Generate referral code
+  const referralCode = internName.toLowerCase().replace(/\s+/g, '') + "2025";
+  document.getElementById("referralCode").textContent = referralCode;
+
+  // 🔄 Fetch and show total donation for current user
+  function updateDonationDisplay() {
+    fetch(`http://localhost:5000/api/donations/${internName}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("donations").textContent = data.total;
+      });
+  }
+
+  updateDonationDisplay(); // call it once on load
+
+  // 🔼 Submit donation
+  function submitFund() {
+    const amount = parseInt(document.getElementById("fundInput").value);
+    if (!amount || amount <= 0) {
+      alert("Please enter a valid amount.");
+      return;
+    }
+
+    fetch("http://localhost:5000/api/donate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: internName, amount })
+    })
+    .then(() => {
+      alert("Donation submitted!");
+      document.getElementById("fundInput").value = "";
+      updateDonationDisplay(); // 🔁 refresh the amount immediately
+    });
+  }
+
+  function logout() {
+    localStorage.removeItem("internName");
+    window.location.href = "index.html";
+  }
+</script> 
+
+</body>
+</html>
