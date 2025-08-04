@@ -1,0 +1,113 @@
+/* frontend/style.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #151331, #24243e);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 0 10px #25beaf;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+  backdrop-filter: blur(15px);
+}
+
+h1, h2 {
+  font-family: 'Orbitron', sans-serif;
+  color: #3dbeb1;
+  text-shadow: 0 0 4px #00ffe7;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 20px;
+  padding-left: 0;
+}
+
+ul li {
+  margin: 10px 0;
+  font-size: 18px;
+  color: #fff;
+  text-shadow: 0 0 5px #fff;
+}
+
+input, button {
+  padding: 12px 18px;
+  margin: 15px 0;
+  width: 100%;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+input {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid #00ffe7;
+}
+
+input::placeholder {
+  color: #ccc;
+}
+
+button {
+  background: #00ffe7;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 10px #00ffe7, 0 0 20px #00ffe7;
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #00ffe7, 0 0 40px #00ffe7;
+}
+
+a {
+  color: #00ffe7;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 20px;
+  transition: 0.3s ease;
+}
+
+a:hover {
+  color: #fff;
+  text-shadow: 5px #00ffe7;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+button.logout {
+  background-color: #ff4d4d;
+  color: white;
+  box-shadow: 0 0 10px #c24949, 0 0 20px #ff4d4d;
+  margin-top: 20px;
+}
