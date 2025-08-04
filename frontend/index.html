@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - Intern Portal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Intern Portal Login</h1>
+    <input type="text" id="internInput" placeholder="Enter your name" />
+    <button onclick="login()">Login</button>
+    <button class="logout" onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    function login() {
+    const name = document.getElementById("internInput").value.trim();
+    if (!name) return alert("Enter name");
+
+    localStorage.setItem("internName", name);
+
+    // ➕ Save to MongoDB
+    fetch("http://localhost:5000/api/user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name })
+    }).then(() => {
+        window.location.href = "dashboard.html";
+    });
+    }
+  </script>
+</body>
+</html>
