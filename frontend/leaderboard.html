@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Leaderboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Top Interns</h1>
+
+    <h2>🔥 Donated More Than 3k</h2>
+    <ul id="topInternsList"></ul>
+
+    <h2>🎗️ Other Donated Interns</h2>
+    <ul id="otherInternsList"></ul>
+
+    <a href="dashboard.html">← Back to Dashboard</a>
+    <br><br>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    const internName = localStorage.getItem("internName");
+    if (!internName) {
+      window.location.href = "index.html";
+    }
+
+    fetch("http://localhost:5000/api/leaderboard")
+      .then(res => res.json())
+      .then(data => {
+        const topList = document.getElementById("topInternsList");
+        const otherList = document.getElementById("otherInternsList");
+
+        data.forEach(entry => {
+          const li = document.createElement("li");
+          li.textContent = `${entry.name} - ₹${entry.donations}`;
+
+          if (entry.donations > 3000) {
+            topList.appendChild(li);
+          } else {
+            otherList.appendChild(li);
+          }
+        });
+      });
+
+    function logout() {
+      localStorage.removeItem("internName");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
